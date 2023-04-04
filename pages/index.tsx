@@ -1,3 +1,4 @@
+// This file was renamed from "index.js" to "index.tsx"
 import Head from "next/head";
 // import styles from "../styles/Home.module.css";
 /* Used to link pages in application. <Link> allows client-side navigation and accept
@@ -10,17 +11,27 @@ import utilStyles from "../styles/utils.module.css";
 import { getSortedPostsData } from "../lib/posts";
 
 import Date from "../components/date";
+// Import this for Typescript type
+import { GetStaticProps } from "next";
 
-export async function getStaticProps() {
+export const getStaticProps: GetStaticProps = async () => {
   const allPostsData = getSortedPostsData();
   return {
     props: {
       allPostsData,
     },
   };
-}
+};
 
-export default function Home({ allPostsData }) {
+export default function Home({
+  allPostsData,
+}: {
+  allPostsData: {
+    date: string;
+    title: string;
+    id: string;
+  }[];
+}) {
   return (
     <Layout home>
       <Head>
